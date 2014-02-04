@@ -8,6 +8,7 @@
  */
 return [
     'className'       => '\CWebApplication',
+    'priority'        => 1,
     'useGlobalConfig' => true,
     'isCli'           => false,
     'isActive'        => false
