@@ -226,8 +226,6 @@ class Base
             }, $this->_aliases);
         }
 
-        var_dump($application->messages->extensionPaths);
-
         $application->run();
     }
 
