@@ -220,6 +220,14 @@ class Base
             'basePath' => $basePath,
         ]));
 
+        if($application->messages !== null and property_exists($application->messages, 'extensionPaths')) {
+            $application->messages->extensionPaths = array_map(function($value) {
+                return $value . '/messages';
+            }, $this->_aliases);
+        }
+
+        var_dump($application->messages->extensionPaths);
+
         $application->run();
     }
 
