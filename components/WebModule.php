@@ -25,7 +25,7 @@ class WebModule extends \CWebModule
         $viewPath          = $inApplicationPath . DIRECTORY_SEPARATOR . dirname($this->viewPath);
 
         if(is_dir($inApplicationPath)) {
-            \Yii::setPathOfAlias('_' . $this->id, $inApplicationPath);
+            \Yii::setPathOfAlias('app' . ucfirst($this->id), $inApplicationPath);
 
             if(is_dir($controllerPath)) {
                 $this->controllerPath = $controllerPath;
