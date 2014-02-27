@@ -177,6 +177,8 @@ class Base
                     $this->_activeId = $priority->current();
                     break;
                 }
+
+                $priority->next();
             }
         }
         return $this->_activeId;
