@@ -199,7 +199,7 @@ class Base
             throw new \CHttpException(400, 'Bad Request.');
         }
 
-        foreach($this->_aliases as $name => $path) {
+        foreach($this->_aliases + ['yiinit' => __DIR__] as $name => $path) {
             \Yii::setPathOfAlias($name, $path);
         }
 
