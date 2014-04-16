@@ -7,7 +7,7 @@
  *
  */
 return [
-    'className'       => '\CWebApplication',
+    'class'           => '\CWebApplication',
     'priority'        => 1,
     'useGlobalConfig' => true,
     'isCli'           => false,

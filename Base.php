@@ -206,7 +206,7 @@ class Base
         /**
          * @var string $alias
          * @var string $basePath
-         * @var string $className
+         * @var string $class
          * @var bool $useGlobalConfig
          * @var bool $isCli
          */
@@ -217,7 +217,7 @@ class Base
 
         ArrayX::set($config, 'params.yiinit', $this);
 
-        $application = \Yii::createApplication($className, ArrayX::merge($config, [
+        $application = \Yii::createApplication($class, ArrayX::merge($config, [
             'id'       => $alias,
             'basePath' => $basePath,
         ]));
