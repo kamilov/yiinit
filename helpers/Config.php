@@ -62,7 +62,7 @@ class Config
      *
      * @return array
      */
-    private function _getFileList($directory, $fileList, $environment)
+    private static function _getFileList($directory, $fileList, $environment)
     {
         $result = [];
 
@@ -88,7 +88,7 @@ class Config
      *
      * @return string
      */
-    private function _getDirectoryPath($directory)
+    private static function _getDirectoryPath($directory)
     {
         $directory = rtrim($directory, '\\/');
 
