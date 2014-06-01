@@ -105,19 +105,21 @@ class Base
      */
     public function addApplication($directory, $alias = null)
     {
-        if($alias === null) {
-            $alias = basename($directory);
-        }
+        if(is_dir($directory)) {
+            if($alias === null) {
+                $alias = basename($directory);
+            }
 
-        $settings = ArrayX::merge(
-            ['alias' => $alias, 'basePath' => $directory],
-            self::getDefaultYiinitSettings(),
-            Config::yiinit($directory, $this->_environment)
-        );
+            $settings = ArrayX::merge(
+                ['alias' => $alias, 'basePath' => $directory],
+                self::getDefaultYiinitSettings(),
+                Config::yiinit($directory, $this->_environment)
+            );
 
-        if($settings['isCli'] === self::isCli()) {
-            $this->_aliases[$alias]      = $directory;
-            $this->_settings[$alias] = $settings;
+            if($this->_isConsoleApplication($settings) === self::isCli()) {
+                $this->_aliases[$alias]  = $directory;
+                $this->_settings[$alias] = $settings;
+            }
         }
 
         return $this;
@@ -245,5 +247,12 @@ class Base
         }
 
         return $priority;
+    }
+
+    private function _isConsoleApplication(array $settings)
+    {
+        return (in_array($settings['class'], [
+            'CConsoleApplication'
+        ]) or (isset($settings['isCli']) and $settings['isCli']));
     }
 }
