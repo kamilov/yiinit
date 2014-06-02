@@ -95,13 +95,13 @@ class Eav extends \CActiveRecordBehavior
             $primaryKey = $model->getTableAlias(true) . '.' . $connection->quoteColumnName($model->tableSchema->primaryKey);
 
             foreach($this->attributes as $name => $type) {
-                $tableName = $this->_getTableSchema($type)->rawName;
+                $tableName = $connection->quoteTableName($this->_getTableSchema($type)->name . ucfirst($name));
                 $attribute = $tableName . '.' . $connection->quoteColumnName('attribute');
                 $item      = $tableName . '.' . $connection->quoteColumnName('item');
                 $value     = $tableName . '.' . $connection->quoteColumnName('value');
 
                 $criteria->select .= ', ' . $value . ' AS ' . $connection->quoteColumnName($name);
-                $criteria->join   .= PHP_EOL . 'LEFT JOIN ' . $tableName;
+                $criteria->join   .= PHP_EOL . 'LEFT JOIN ' . $this->_getTableSchema($type)->rawName . ' AS ' . $tableName;
                 $criteria->join   .= ' ON (' . $attribute . ' = ' . $connection->quoteValue($name);
                 $criteria->join   .= ' AND ' . $item . ' = ' . $primaryKey . ')';
             }
