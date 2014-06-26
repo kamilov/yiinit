@@ -141,6 +141,24 @@ class Eav extends \CActiveRecordBehavior
     }
 
     /**
+     * формирует имя поля для указанного атрибута
+     * @param string $name
+     * @return null|string
+     */
+    public function eavColumnName($name)
+    {
+        if(isset($this->attributes[$name])) {
+            $connection = $this->owner->dbConnection;
+            return sprintf(
+                '%s.%s',
+                $connection->quoteTableName($this->_getTableSchema($this->attributes[$name])->name . ucfirst($name)),
+                $connection->quoteColumnName('value')
+            );
+        }
+        return null;
+    }
+
+    /**
      * возвращает объект схемы таблицы, хранязей значения указанного типа данных
      * если таблица не была найдена в бд, то она будет создана
      * @param string $type
