@@ -56,6 +56,12 @@ class Eav extends \CActiveRecordBehavior
     public $tableNames = [];
 
     /**
+     * список атрибутов, которые должны быть обязательно подгружены
+     * @var array
+     */
+    public $required = [];
+
+    /**
      * список типов данных eav и их типов полей в базе данных
      * @var array
      */
@@ -101,7 +107,7 @@ class Eav extends \CActiveRecordBehavior
                 $value     = $tableName . '.' . $connection->quoteColumnName('value');
 
                 $criteria->select .= ', ' . $value . ' AS ' . $connection->quoteColumnName($name);
-                $criteria->join   .= PHP_EOL . 'LEFT JOIN ' . $this->_getTableSchema($type)->rawName . ' AS ' . $tableName;
+                $criteria->join   .= PHP_EOL . (!in_array($name, $this->required) ? 'LEFT ' : '') . 'JOIN ' . $this->_getTableSchema($type)->rawName . ' AS ' . $tableName;
                 $criteria->join   .= ' ON (' . $attribute . ' = ' . $connection->quoteValue($name);
                 $criteria->join   .= ' AND ' . $item . ' = ' . $primaryKey . ')';
             }
